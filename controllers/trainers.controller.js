@@ -1,5 +1,4 @@
 const Trainer = require('./../models/Trainer.model')
-const Activity = require('./../models/Activity.model')
 
 function getTrainers(req, res, next) {
 

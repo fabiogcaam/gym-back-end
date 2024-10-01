@@ -10,7 +10,7 @@ const classSchema = new Schema({
         ref: 'Trainer'
     },
     schedule: {
-        type: Array,
+        type: [Date],
         required: [true, 'Schedule is required']
     },
     participants: {

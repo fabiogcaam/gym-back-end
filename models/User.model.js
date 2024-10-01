@@ -20,7 +20,7 @@ const userSchema = new Schema(
       required: [true, 'Password is required.']
     },
     booking: {
-      type: Schema.Types.ObjectId,
+      type: [Schema.Types.ObjectId],
       ref: 'Booking'
     }
   },
