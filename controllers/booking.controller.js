@@ -1,5 +1,6 @@
 const Booking = require('./../models/Booking.model')
 const Classes = require('./../models/Class.model')
+const User = require('./../models/User.model')
 
 function createBooking(req, res, next) {
 
@@ -27,8 +28,11 @@ function createBooking(req, res, next) {
             }
             return Booking.create({ user: userId, class: classId })
         })
-        .then(() => {
-            Classes.findByIdAndUpdate({ classId }, { $push: { participants: userId } }, { new: true })
+        .then((booking) => {
+            return Promise.all([
+                User.findByIdAndUpdate(userId, { $push: { bookings: booking._id } }, { new: true }),
+                Classes.findByIdAndUpdate(classId, { $push: { participants: userId } }, { new: true })
+            ])
         })
         .then(() => res.status(201).json('Booking created succesfully'))
         .catch(err => next(err))
