@@ -10,4 +10,7 @@ module.exports = app => {
 
     const classesRoutes = require('./classes.routes.js')
     app.use('/api/classes', classesRoutes)
+
+    const trainersRoutes = require('./trainers.routes.js')
+    app.use('/api/trainers', trainersRoutes)
 }

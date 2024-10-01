@@ -1,10 +1,11 @@
 const router = require("express").Router()
+const { signup, login, verify } = require('./../controllers/auth.controller')
 
-router.get("/signup")
+router.get("/signup", signup)
 
-router.get('/login')
+router.get('/login', login)
 
-router.get('/verify')
+router.get('/verify', verify)
 
 
 module.exports = router
