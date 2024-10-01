@@ -16,4 +16,7 @@ module.exports = app => {
 
     const bookingRoutes = require('./booking.routes.js')
     app.use('/api/bookings', bookingRoutes)
+
+    const userRoutes = require('./user.routes.js')
+    app.use('/api/users', userRoutes)
 }

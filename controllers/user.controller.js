@@ -1,5 +1,4 @@
 const User = require('./../models/User.model')
-const Booking = require('./../models/Booking.model')
 
 function bookingList(req, res, next) {
 
@@ -10,4 +9,9 @@ function bookingList(req, res, next) {
         .populate('bookings')
         .then((result) => res.json(result.bookings))
         .catch(err => next(err))
+
+}
+
+module.exports = {
+    bookingList
 }
