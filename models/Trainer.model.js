@@ -5,9 +5,9 @@ const trainerSchema = new Schema({
         type: String,
         required: [true, 'Name is required']
     },
-    activity: {
-        type: Schema.Types.ObjectId,
-        ref: 'Activity'
+    age: {
+        type: Number,
+        required: [true, 'Age is required']
     },
     description: {
         type: String,
@@ -15,6 +15,10 @@ const trainerSchema = new Schema({
     },
     imageUrl: {
         type: String
+    },
+    activity: {
+        type: Schema.Types.ObjectId,
+        ref: 'Activity'
     }
 })
 
