@@ -3,11 +3,13 @@ const { Schema, model } = require('mongoose')
 const classSchema = new Schema({
     activity: {
         type: Schema.Types.ObjectId,
-        ref: 'Activity'
+        ref: 'Activity',
+        required: [true, 'An activity is mandatory']
     },
     trainer: {
         type: Schema.Types.ObjectId,
-        ref: 'Trainer'
+        ref: 'Trainer',
+        required: [true, 'Trainer is mandatory']
     },
     schedule: {
         type: [Date],
