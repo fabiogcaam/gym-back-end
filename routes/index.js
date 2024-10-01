@@ -13,4 +13,7 @@ module.exports = app => {
 
     const trainersRoutes = require('./trainers.routes.js')
     app.use('/api/trainers', trainersRoutes)
+
+    const bookingRoutes = require('./booking.routes.js')
+    app.use('/api/bookings', bookingRoutes)
 }
