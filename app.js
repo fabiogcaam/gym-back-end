@@ -9,7 +9,7 @@ const app = express()
 
 require("./config")(app)
 
-const indexRoutes = require("./routes/index.routes")
+const indexRoutes = require("./routes/auth.routes")
 app.use("/api", indexRoutes)
 
 require("./error-handling")(app)

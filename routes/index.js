@@ -6,8 +6,8 @@ module.exports = app => {
     app.use('/api/auth', authRoutes)
 
     const activityRoutes = require('./activities.routes.js')
-    app.use('/actitivities', activityRoutes)
+    app.use('/api/actitivities', activityRoutes)
 
     const classesRoutes = require('./classes.routes.js')
-    app.use('/classes', classesRoutes)
+    app.use('/api/classes', classesRoutes)
 }
