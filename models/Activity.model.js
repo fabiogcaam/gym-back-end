@@ -14,3 +14,7 @@ const activitySchema = new Schema(
             type: String
         }
     })
+
+const Activity = model("Activity", activitySchema)
+
+module.exports = Activity
