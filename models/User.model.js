@@ -19,7 +19,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Password is required.']
     },
-    booking: {
+    bookings: {
       type: [Schema.Types.ObjectId],
       ref: 'Booking'
     }

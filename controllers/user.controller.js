@@ -1,10 +1,13 @@
 const User = require('./../models/User.model')
 const Booking = require('./../models/Booking.model')
 
-function addBooking(req, res, next) {
+function bookingList(req, res, next) {
 
-    const { _id } = req.params
+    const { loggedUser } = req.payload
 
-    User.findById({ _id })
-        .then()
+    User
+        .findById(loggedUser)
+        .populate('bookings')
+        .then((result) => res.json(result.bookings))
+        .catch(err => next(err))
 }

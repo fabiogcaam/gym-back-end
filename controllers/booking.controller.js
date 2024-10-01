@@ -5,7 +5,7 @@ const User = require('./../models/User.model')
 function createBooking(req, res, next) {
 
     const { classId } = req.body
-    const { userId } = req.payload
+    const { loggedUser } = req.payload
 
     let myClass
 
@@ -17,7 +17,7 @@ function createBooking(req, res, next) {
                 return res.status(400).json('This class doen´t exists')
             }
             myClass = foundClass
-            return Booking.findOne({ user: userId, class: classId })
+            return Booking.findOne({ user: loggedUser, class: classId })
         })
         .then((existingBooking) => {
             if (existingBooking) {
@@ -26,12 +26,12 @@ function createBooking(req, res, next) {
             if (myClass.participants.length >= myClass.numParticipants) {
                 return res.status(400).json('The class is full')
             }
-            return Booking.create({ user: userId, class: classId })
+            return Booking.create({ user: loggedUser, class: classId })
         })
         .then((booking) => {
             return Promise.all([
-                User.findByIdAndUpdate(userId, { $push: { bookings: booking._id } }, { new: true }),
-                Classes.findByIdAndUpdate(classId, { $push: { participants: userId } }, { new: true })
+                User.findByIdAndUpdate(loggedUser, { $push: { bookings: booking._id } }, { new: true }),
+                Classes.findByIdAndUpdate(classId, { $push: { participants: loggedUser } }, { new: true })
             ])
         })
         .then(() => res.status(201).json('Booking created succesfully'))
