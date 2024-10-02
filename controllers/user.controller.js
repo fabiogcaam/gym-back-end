@@ -1,4 +1,6 @@
 const User = require('./../models/User.model')
+const Classes = require('./../models/Class.model')
+const Booking = require('./../models/Booking.model')
 
 function bookingList(req, res, next) {
 
@@ -11,6 +13,7 @@ function bookingList(req, res, next) {
         .catch(err => next(err))
 
 }
+
 
 module.exports = {
     bookingList
