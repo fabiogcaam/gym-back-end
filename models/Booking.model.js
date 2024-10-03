@@ -17,7 +17,7 @@ const bookingSchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['Reserved', 'Canceled', 'Finished'],
+        enum: ['Reserved', 'Finished'],
         default: 'Reserved'
     }
 })

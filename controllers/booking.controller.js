@@ -38,7 +38,28 @@ function createBooking(req, res, next) {
         .catch(err => next(err))
 }
 
+function finishedClass(req, res, next) {
+
+    const todaysDate = new Date()
+    const { bookingId } = req.params
+
+    Booking.findById(bookingId)
+        .populate('user')
+        .populate('class')
+        .then((foundBooking) => {
+            if (!foundBooking) {
+                return res.status(400).json({ errorMessage: 'This booking doesn´t exists' })
+            }
+            if (foundBooking.bookingDate <= todaysDate) {
+                return res.status(400).json({ errorMessage: 'The booking hasn´t finished yet' })
+            }
+            foundBooking.status == "Finished"
+            return res.status(201).json('This booking has finished')
+        })
+}
+
 module.exports = {
-    createBooking
+    createBooking,
+    finishedClass
 }
 

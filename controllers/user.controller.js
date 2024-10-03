@@ -14,7 +14,46 @@ function bookingList(req, res, next) {
 
 }
 
+function addBooking(req, res, next) {
+
+    const { loggedUser } = req.payload
+    const { classId } = req.params
+
+    Booking
+        .findOne({ user: loggedUser, class: classId })
+        .populate('user')
+        .populate('class')
+        .then((foundBooking) => {
+            if (foundBooking) {
+                return res.status(400).json({ errorMessage: 'You already are added to this class' })
+            }
+            return Booking.create({ user: loggedUser, class: classId }).populate('user').populate('class')
+        })
+        .then((bookingCreated) => {
+            User.findByIdAndUpdate(loggedUser, { $push: { bookings: bookingCreated._id } })
+        })
+        .catch(err => next(err))
+}
+
+function deleteBooking(req, res, next) {
+
+    const { loggedUser } = req.payload
+    const { bookingId } = req.params
+
+    const promises = [
+        User.findByIdAndUpdate(loggedUser, { $push: { bookings: bookingId } }, { new: true }).populate('bookings'),
+        Booking.findByIdAndDelete(bookingId).populate('user').populate('class')
+    ]
+
+    Promise.all(promises)
+        .then(() => res.status(202).json('Booking deleted properly'))
+        .catch(err => next(err))
+
+}
+
 
 module.exports = {
-    bookingList
+    bookingList,
+    addBooking,
+    deleteBooking
 }

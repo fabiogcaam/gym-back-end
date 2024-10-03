@@ -1,4 +1,7 @@
 const router = require('express').Router()
-const { createBooking } = require('./../controllers/booking.controller')
+const { verifyToken } = require('../middlewares/verifyToken')
+const { createBooking, finishedClass } = require('./../controllers/booking.controller')
 
-router.post('/create', createBooking)
+router.post('/create', verifyToken, createBooking)
+
+router.post('/finished', verifyToken, finishedClass)
