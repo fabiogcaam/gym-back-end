@@ -22,28 +22,13 @@ function createTrainer(req, res, next) {
 
 }
 
-function addClassToTrainer(req, res, next) {
-
-    const { idClass } = req.params
-
-    const { loggedUser } = req.payload
-
-    loggedUser.typeUser
-
-        &&
-
-        Trainer.findByIdAndUpdate(loggedUser, { $push: { class: idClass } }, { new: true }).populate('activity').populate('class')
-            .then((trainerUpdated) => res.status(202).json(trainerUpdated))
-            .catch(err => next(err))
-
-}
 
 function addActivityToTrainer(req, res, next) {
 
     const { idActivity } = req.params
     const { loggedUser } = req.payload
 
-    if (loggedUser.typeUser == "trainer") {
+    if (loggedUser.typeUser == "TRAINER") {
         Trainer.findByIdAndUpdate(loggedUser._id, { activity: idActivity }).populate('activity').populate('classes')
             .then((trainerUpdated) => res.status(202).json(trainerUpdated))
             .catch(err => next(err))
@@ -62,7 +47,7 @@ function addClassToTrainer(req, res, next) {
     Classes.findByIdAndUpdate(classId, { $push: { trainer: loggedUser } }, { new: true }).populate('activity').populate('activity')]
 
 
-    if (loggedUser.typeUser == 'trainer') {
+    if (loggedUser.typeUser == 'TRAINER') {
         Trainer.findById(loggedUser._id)
             .then(trainerFound => {
                 if (trainerFound.classes.contains(classId)) {

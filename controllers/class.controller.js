@@ -2,6 +2,16 @@ const Classes = require('./../models/Class.model')
 const Activity = require('./../models/Activity.model')
 const Trainer = require('./../models/Trainer.model')
 
+function getClasses(req, res, next) {
+
+    Classes.find().populate('users').populate('activity')
+        .then(classFound => {
+            res.status(200).json(classFound)
+        })
+        .catch(err => next(err))
+
+}
+
 function addClass(req, res, next) {
 
     const { activity, trainer, schedule, participants, numParticipants } = req.body
@@ -34,6 +44,18 @@ function addClass(req, res, next) {
 
 }
 
+function deleteClass(req, res, next) {
+
+    const { classId } = req.params
+
+    Classes.findByIdAndDelete(classId)
+        .then(() => res.status(201).json('deleted succesfully'))
+        .catch(err => next(err))
+
+}
+
 module.exports = {
-    addClass
+    getClasses,
+    addClass,
+    deleteClass
 }

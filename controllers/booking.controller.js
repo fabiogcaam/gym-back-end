@@ -56,6 +56,7 @@ function finishedClass(req, res, next) {
             foundBooking.status == "Finished"
             return res.status(201).json('This booking has finished')
         })
+        .catch(err => next(err))
 }
 
 module.exports = {
