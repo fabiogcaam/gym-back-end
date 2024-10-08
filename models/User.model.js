@@ -22,6 +22,11 @@ const userSchema = new Schema(
     bookings: {
       type: [Schema.Types.ObjectId],
       ref: 'Booking'
+    },
+    typeUser: {
+      type: String,
+      enum: ['USER', 'TRAINER', 'ADMIN'],
+      default: 'USER'
     }
   },
   {
@@ -42,7 +47,7 @@ userSchema.pre('save', function (next) {
 userSchema.methods.signToken = function () {
 
   const { _id, name, email, password } = this
-  const payload = { _id, name, email, password }
+  const payload = { _id, name, email, password, typeUser }
 
   const authToken = jwt.sign(
     payload,
