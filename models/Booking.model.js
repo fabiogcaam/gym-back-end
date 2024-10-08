@@ -20,7 +20,10 @@ const bookingSchema = new Schema({
         enum: ['Reserved', 'Finished'],
         default: 'Reserved'
     }
-})
+},
+    {
+        timestamps: true
+    })
 
 const Booking = model('Booking', bookingSchema)
 
