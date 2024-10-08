@@ -43,9 +43,11 @@ function addActivityToTrainer(req, res, next) {
     const { idActivity } = req.params
     const { loggedUser } = req.payload
 
-    Trainer.findByIdAndUpdate(loggedUser, { $push: { activity: idActivity } }, { new: true }).populate('activity').populate('classes')
-        .then((trainerUpdated) => res.status(202).json(trainerUpdated))
-        .catch(err => next(err))
+    if (loggedUser.typeUser == "trainer") {
+        Trainer.findByIdAndUpdate(loggedUser._id, { activity: idActivity }).populate('activity').populate('classes')
+            .then((trainerUpdated) => res.status(202).json(trainerUpdated))
+            .catch(err => next(err))
+    }
 
 }
 
