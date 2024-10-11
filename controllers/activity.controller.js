@@ -22,13 +22,8 @@ function addActivity(req, res, next) {
 function deleteActivity(req, res, next) {
 
     const { activityId } = req.params
-    const activityToDelete = Activity.findById(activityId).populate('classes')
 
-    const promises = [Activity.findByIdAndDelete(activityId).populate('classes'),
-    Classes.findOneAndUpdate(activityToDelete.classes)]
-
-
-    Activity.findByIdAndDelete(activityId).populate('classes')
+    Activity.findByIdAndDelete(activityId)
         .then(() => res.status(201).json("Activity deleted succesfully"))
         .catch(err => next(err))
 

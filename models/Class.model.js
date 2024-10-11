@@ -15,16 +15,18 @@ const classSchema = new Schema({
         type: [Date],
         required: [true, 'Schedule is required']
     },
-    participants: {
-        type: [Schema.Types.ObjectId],
-        ref: 'User',
-        validate: {
-            validator: function (v) {
-                return v.length <= this.numParticipants
-            },
-            props: `It must have a maximum of ${numParticipants} per class`
+    participants: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            validate: {
+                validator: function (v) {
+                    return v.length <= this.numParticipants
+                },
+                props: `It must have a maximum of ${numParticipants} per class`
+            }
         }
-    },
+    ],
     numParticipants: {
         type: Number,
         required: [true, 'Max number of participants ir required']

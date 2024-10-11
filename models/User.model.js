@@ -19,10 +19,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Password is required.']
     },
-    bookings: {
-      type: [Schema.Types.ObjectId],
-      ref: 'Booking'
-    },
+    bookings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Booking'
+      }
+    ],
     typeUser: {
       type: String,
       enum: ['USER', 'TRAINER', 'ADMIN'],
