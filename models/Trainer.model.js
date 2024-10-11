@@ -19,10 +19,6 @@ const trainerSchema = new Schema({
     activity: {
         type: Schema.Types.ObjectId,
         ref: 'Activity'
-    },
-    classes: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Classes'
     }
 })
 

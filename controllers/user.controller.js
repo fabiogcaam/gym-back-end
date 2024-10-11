@@ -6,7 +6,7 @@ function bookingList(req, res, next) {
     const { loggedUser } = req.payload
 
     User
-        .findById(loggedUser)
+        .findById(loggedUser._id)
         .populate('bookings')
         .then((result) => res.json(result.bookings))
         .catch(err => next(err))
@@ -19,7 +19,7 @@ function addBooking(req, res, next) {
     const { classId } = req.params
 
     Booking
-        .findOne({ user: loggedUser, class: classId })
+        .findOne({ user: loggedUser._id, class: classId })
         .populate('user')
         .populate('class')
         .then((foundBooking) => {
@@ -40,7 +40,7 @@ function deleteBooking(req, res, next) {
     const { bookingId } = req.params
 
     const promises = [
-        User.findByIdAndUpdate(loggedUser, { $push: { bookings: bookingId } }, { new: true }).populate('bookings'),
+        User.findByIdAndUpdate(loggedUser, { $pull: { bookings: bookingId } }, { new: true }).populate('bookings'),
         Booking.findByIdAndDelete(bookingId).populate('user').populate('class')
     ]
 

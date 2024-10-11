@@ -12,10 +12,6 @@ const activitySchema = new Schema(
         },
         imageUrl: {
             type: String
-        },
-        classes: {
-            type: [Schema.Types.ObjectId],
-            ref: 'Classes'
         }
     })
 
