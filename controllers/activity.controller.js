@@ -1,4 +1,3 @@
-const Classes = require('../models/Class.model')
 const Activity = require('./../models/Activity.model')
 
 function getActivityList(req, res, next) {
@@ -11,9 +10,9 @@ function getActivityList(req, res, next) {
 
 function addActivity(req, res, next) {
 
-    const { activityId, name, description, imageUrl } = req.body
+    const { name, description, imageUrl } = req.body
 
-    Activity.create({ activityId, name, description, imageUrl }).populate('classes')
+    Activity.create({ name, description, imageUrl }).populate('classes')
         .then(() => res.status(200).json('Activity created succesfully'))
         .catch(err => next(err))
 

@@ -38,7 +38,7 @@ function createBooking(req, res, next) {
         .catch(err => next(err))
 }
 
-function finishedClass(req, res, next) {
+function finishedBooking(req, res, next) {
 
     const todaysDate = new Date()
     const { bookingId } = req.params
@@ -61,6 +61,6 @@ function finishedClass(req, res, next) {
 
 module.exports = {
     createBooking,
-    finishedClass
+    finishedBooking
 }
 
