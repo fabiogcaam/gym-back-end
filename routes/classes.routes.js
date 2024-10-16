@@ -8,3 +8,5 @@ router.get('/', getClassesList)
 router.post('/add', verifyToken, isAdmin, addClass)
 
 router.post('/delete', verifyToken, isAdmin, deleteClass)
+
+module.exports = router

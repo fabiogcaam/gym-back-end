@@ -17,7 +17,7 @@ function createBooking(req, res, next) {
                 return res.status(400).json('This class doen´t exists')
             }
             myClass = foundClass
-            return Booking.findOne({ user: loggedUser, class: classId })
+            return Booking.findOne({ user: loggedUser._id, class: classId })
         })
         .then((existingBooking) => {
             if (existingBooking) {
@@ -30,7 +30,7 @@ function createBooking(req, res, next) {
         })
         .then((booking) => {
             return Promise.all([
-                User.findByIdAndUpdate(loggedUser, { $push: { bookings: booking._id } }, { new: true }),
+                User.findByIdAndUpdate(loggedUser._id, { $push: { bookings: booking._id } }, { new: true }),
                 Classes.findByIdAndUpdate(classId, { $push: { participants: loggedUser } }, { new: true })
             ])
         })

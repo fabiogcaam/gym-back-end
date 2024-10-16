@@ -5,3 +5,5 @@ const { createBooking, finishedClass } = require('./../controllers/booking.contr
 router.post('/create', verifyToken, createBooking)
 
 router.post('/finished', verifyToken, finishedClass)
+
+module.exports = router

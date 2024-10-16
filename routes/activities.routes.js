@@ -8,3 +8,5 @@ router.get('/', getActivityList)
 router.post('/add', verifyToken, isAdmin, addActivity)
 
 router.post('/delete', verifyToken, isAdmin, deleteActivity)
+
+module.exports = router

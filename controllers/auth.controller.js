@@ -8,6 +8,7 @@ function signup(req, res, next) {
     User
         .create({ name, email, password })
         .then(() => res.status(201).json('User created succesfully'))
+        .catch(err => next(err))
 }
 
 function login(req, res, next) {

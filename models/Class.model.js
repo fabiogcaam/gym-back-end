@@ -15,6 +15,10 @@ const classSchema = new Schema({
         type: [Date],
         required: [true, 'Schedule is required']
     },
+    numParticipants: {
+        type: Number,
+        required: [true, 'Max number of participants is required']
+    },
     participants: [
         {
             type: Schema.Types.ObjectId,
@@ -26,11 +30,7 @@ const classSchema = new Schema({
                 props: `It must have a maximum of ${numParticipants} per class`
             }
         }
-    ],
-    numParticipants: {
-        type: Number,
-        required: [true, 'Max number of participants ir required']
-    }
+    ]
 })
 
 const Classes = model('Classes', classSchema)

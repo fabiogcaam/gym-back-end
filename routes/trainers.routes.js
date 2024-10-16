@@ -6,3 +6,5 @@ router.get('/', getTrainers)
 router.post('/create', createTrainer)
 
 router.post('/addActivity', addActivityToTrainer)
+
+module.exports = router

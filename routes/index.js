@@ -1,5 +1,3 @@
-const app = require('../app')
-
 module.exports = app => {
 
     const authRoutes = require('./auth.routes')
@@ -19,4 +17,5 @@ module.exports = app => {
 
     const userRoutes = require('./user.routes.js')
     app.use('/api/users', userRoutes)
+
 }
