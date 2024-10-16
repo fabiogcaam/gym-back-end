@@ -27,7 +27,7 @@ const classSchema = new Schema({
                 validator: function (v) {
                     return v.length <= this.numParticipants
                 },
-                props: `It must have a maximum of ${numParticipants} per class`
+                props: `It must have a maximum of ${this.numParticipants} per class`
             }
         }
     ]
