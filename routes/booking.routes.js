@@ -4,6 +4,6 @@ const { createBooking, finishedBooking } = require('./../controllers/booking.con
 
 router.post('/create', verifyToken, createBooking)
 
-router.post('/finished', verifyToken, finishedBooking)
+router.post('/:id/finished', verifyToken, finishedBooking)
 
 module.exports = router

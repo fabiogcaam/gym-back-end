@@ -11,11 +11,12 @@ function getTrainers(req, res, next) {
 
 function createTrainer(req, res, next) {
 
+    const { idActivity } = req.params
     const { name, age, description, imageUrl } = req.body
 
 
     Trainer
-        .create({ name, age, description, imageUrl })
+        .create({ name, age, description, imageUrl, activity: idActivity })
         .then(() => res.status(201).json('Trainer created succesfylly'))
         .catch(err => next(err))
 

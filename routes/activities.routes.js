@@ -5,8 +5,8 @@ const { isAdmin } = require('./../middlewares/verifyUserType')
 
 router.get('/', getActivityList)
 
-router.post('/add', verifyToken, isAdmin, addActivity)
+router.post('/add', addActivity)
 
-router.post('/delete', verifyToken, isAdmin, deleteActivity)
+router.post('/:id/delete', verifyToken, isAdmin, deleteActivity)
 
 module.exports = router

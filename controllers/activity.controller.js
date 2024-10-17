@@ -12,7 +12,7 @@ function addActivity(req, res, next) {
 
     const { name, description, imageUrl } = req.body
 
-    Activity.create({ name, description, imageUrl }).populate('classes')
+    Activity.create({ name, description, imageUrl })
         .then(() => res.status(200).json('Activity created succesfully'))
         .catch(err => next(err))
 

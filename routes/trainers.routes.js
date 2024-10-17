@@ -3,7 +3,7 @@ const { getTrainers, createTrainer, addActivityToTrainer } = require('./../contr
 
 router.get('/', getTrainers)
 
-router.post('/create', createTrainer)
+router.post('/:idActivity/create', createTrainer)
 
 router.post('/addActivity', addActivityToTrainer)
 
