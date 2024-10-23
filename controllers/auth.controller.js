@@ -6,7 +6,7 @@ function signup(req, res, next) {
     const { name, email, password } = req.body
 
     User
-        .create({ name, email, password })
+        .create({ name, email, password, typeUser: "USER" })
         .then(() => res.status(201).json('User created succesfully'))
         .catch(err => next(err))
 }
@@ -28,8 +28,8 @@ function login(req, res, next) {
             }
 
             if (foundUser.validatePassword(password)) {
-                const { _id, name, email, password } = foundUser
-                const payload = { _id, name, email, password }
+                const { _id, name, email, password, typeUser } = foundUser
+                const payload = { _id, name, email, password, typeUser }
 
                 const authToken = foundUser.signToken()
 

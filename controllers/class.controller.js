@@ -50,8 +50,19 @@ function deleteClass(req, res, next) {
 
 }
 
+function getClassesByDay(req, res, next) {
+
+    const { day } = req.query
+
+    Classes.find({ 'schedule.day': day })
+        .then((classes) => res.status(201).json(classes))
+        .catch(err => next(err))
+
+}
+
 module.exports = {
     getClassesList,
     addClass,
-    deleteClass
+    deleteClass,
+    getClassesByDay
 }
