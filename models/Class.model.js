@@ -11,16 +11,16 @@ const classSchema = new Schema({
         ref: 'Trainer',
         required: [true, 'Trainer is mandatory']
     },
-    schedule: [{
+    schedule: {
         day: {
             type: String,
             required: true,
         },
-        time: [{
+        time: {
             type: String,
             required: true
-        }]
-    }],
+        }
+    },
     numParticipants: {
         type: Number,
         required: [true, 'Max number of participants is required']
