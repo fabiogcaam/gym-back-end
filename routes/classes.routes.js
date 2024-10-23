@@ -7,9 +7,9 @@ router.get('/', getClassesList)
 
 router.get('/day', verifyToken, getClassesByDay)
 
-router.post('/add', addClass)
+router.post('/add', verifyToken, isAdmin, addClass)
 
-router.post('/delete', verifyToken, isAdmin, deleteClass)
+router.post('/:id/delete', verifyToken, isAdmin, deleteClass)
 
 
 module.exports = router

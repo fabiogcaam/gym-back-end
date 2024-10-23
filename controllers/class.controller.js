@@ -52,7 +52,7 @@ function deleteClass(req, res, next) {
 
 function getClassesByDay(req, res, next) {
 
-    const { day } = req.query
+    const { day } = req.body
 
     Classes.find({ 'schedule.day': day })
         .then((classes) => res.status(201).json(classes))
