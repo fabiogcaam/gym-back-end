@@ -1,15 +1,9 @@
 const { Schema, model } = require('mongoose')
 
-const classSchema = new Schema({
-    activity: {
-        type: Schema.Types.ObjectId,
-        ref: 'Activity',
-        required: [true, 'An activity is mandatory']
-    },
+const classesSchema = new Schema({
     trainer: {
         type: Schema.Types.ObjectId,
         ref: 'Trainer',
-        required: [true, 'Trainer is mandatory']
     },
     schedule: {
         day: {
@@ -39,7 +33,7 @@ const classSchema = new Schema({
     ]
 })
 
-const Classes = model('Classes', classSchema)
+const Classes = model('Classes', classesSchema)
 
 module.exports = Classes
 

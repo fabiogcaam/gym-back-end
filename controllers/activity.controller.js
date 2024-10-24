@@ -8,6 +8,19 @@ function getActivityList(req, res, next) {
 
 }
 
+function getActivity(req, res, next) {
+
+    const { activity } = req.params
+    console.log("Esto es en el activity Controller", req.params)
+
+    Activity.findOne(activity)
+        .then(activityFound => {
+            console.log("ENTRAMOS EN LA FUNCION", activityFound)
+            res.status(200).json(activityFound)
+        })
+        .catch(err => next(err))
+}
+
 function addActivity(req, res, next) {
 
     const { name, description, imageUrl } = req.body
@@ -28,4 +41,4 @@ function deleteActivity(req, res, next) {
 
 }
 
-module.exports = { getActivityList, addActivity, deleteActivity }
+module.exports = { getActivityList, addActivity, deleteActivity, getActivity }

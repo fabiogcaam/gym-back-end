@@ -4,7 +4,7 @@ const Trainer = require('./../models/Trainer.model')
 
 function getClassesList(req, res, next) {
 
-    Classes.find().populate('users').populate('activity')
+    Classes.find().populate('activity').populate('trainer')
         .then(classFound => {
             res.status(200).json(classFound)
         })
@@ -14,26 +14,16 @@ function getClassesList(req, res, next) {
 
 function addClass(req, res, next) {
 
-    const { activityId, trainerId, schedule, participants, numParticipants } = req.body
+    const { trainerId } = req.params
+    const { schedule, participants, numParticipants } = req.body
 
-    Activity
-        .findById({ _id: activityId })
-        .populate('classes')
-        .then((foundActivity) => {
-            if (!foundActivity) {
-                return res.status(400).json({ errorMessage: 'This activity doesn´t exist' })
-            }
-            return Trainer.findById({ _id: trainerId }).populate('activity')
-        })
+    Trainer.findById(trainerId).populate('activity')
         .then((foundTrainer) => {
             if (!foundTrainer) {
                 return res.status(400).json('This trainer doesn´t exists')
             }
-            if (foundTrainer.activity && foundTrainer.activity.equals(activityId)) {
-                return Classes.create({ activityId, trainerId, schedule, participants, numParticipants }).populate('activity').populate('trainer').populate('participants')
-            } else {
-                return res.status(400).json('Trainer is not associated to this Class')
-            }
+            return Classes.create({ trainer: trainerId, schedule, participants, numParticipants })
+
         })
         .then((createdClass) => res.json(createdClass))
         .catch(err => next(err))
@@ -52,10 +42,15 @@ function deleteClass(req, res, next) {
 
 function getClassesByDay(req, res, next) {
 
-    const { day } = req.body
+    const { day } = req.params
+    console.log(req.params)
+    console.log('el dia es,', day)
 
-    Classes.find({ 'schedule.day': day }).populate('activity').populate('trainer')
-        .then((classes) => res.status(201).json(classes))
+    Classes.find({ 'schedule.day': day }).populate('trainer')
+        .then((classes) => {
+            console.log(classes)
+            res.status(200).json(classes)
+        })
         .catch(err => next(err))
 
 }

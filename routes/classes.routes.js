@@ -5,9 +5,9 @@ const { isAdmin } = require('./../middlewares/verifyUserType')
 
 router.get('/', getClassesList)
 
-router.get('/day', verifyToken, getClassesByDay)
+router.get('/:day/day', getClassesByDay)
 
-router.post('/add', verifyToken, isAdmin, addClass)
+router.post('/:trainerId/add', addClass)
 
 router.post('/:id/delete', verifyToken, isAdmin, deleteClass)
 
