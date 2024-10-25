@@ -46,7 +46,7 @@ function getClassesByDay(req, res, next) {
     console.log(req.params)
     console.log('el dia es,', day)
 
-    Classes.find({ 'schedule.day': day }).populate('trainer')
+    Classes.find({ 'schedule.day': day }).populate('trainer').sort({ 'schedule.time': 1 })
         .then((classes) => {
             console.log(classes)
             res.status(200).json(classes)
