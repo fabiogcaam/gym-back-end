@@ -59,8 +59,26 @@ function finishedBooking(req, res, next) {
         .catch(err => next(err))
 }
 
+function deleteBooking(req, res, next) {
+
+    const { loggedUser } = req.payload
+    const { idClass } = req.params
+
+    const promises = [
+        User.findByIdAndUpdate(loggedUser, { $pull: { class: idClass } }, { new: true }),
+        Classes.findByIdAndUpdate(idClass, { $pull: { user: loggedUser._id } }, { new: true }),
+        Booking.findOneAndDelete({ user: loggedUser._id, class: idClass })
+    ]
+
+    Promise.all(promises)
+        .then(() => res.status(200).json("Deleted booking succesfully"))
+        .catch(err => next(err))
+
+}
+
 module.exports = {
     createBooking,
-    finishedBooking
+    finishedBooking,
+    deleteBooking
 }
 
