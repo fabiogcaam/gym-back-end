@@ -26,7 +26,7 @@ function addBooking(req, res, next) {
             if (foundBooking) {
                 return res.status(400).json({ errorMessage: 'You already are added to this class' })
             }
-            return Booking.create({ user: loggedUser, class: classId }).populate('user').populate('class')
+            return Booking.create({ user: loggedUser, class: classId })
         })
         .then((bookingCreated) => {
             User.findByIdAndUpdate(loggedUser, { $push: { bookings: bookingCreated._id } })
