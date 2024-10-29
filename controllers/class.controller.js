@@ -12,6 +12,20 @@ function getClassesList(req, res, next) {
 
 }
 
+function getClass(req, res, next) {
+
+    const { classId } = req.params
+
+    console.log("ESTOOTOOTO", classId)
+
+    Classes.findById(classId).populate('trainer')
+        .then(result => {
+            console.log("AYYYYYY", result)
+            res.json(result)
+        })
+        .catch(err => next(err))
+}
+
 function addClass(req, res, next) {
 
     const { trainerId } = req.params
@@ -57,6 +71,7 @@ function getClassesByDay(req, res, next) {
 
 module.exports = {
     getClassesList,
+    getClass,
     addClass,
     deleteClass,
     getClassesByDay

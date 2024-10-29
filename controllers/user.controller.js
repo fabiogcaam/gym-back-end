@@ -3,12 +3,16 @@ const Booking = require('./../models/Booking.model')
 
 function bookingList(req, res, next) {
 
-    const { loggedUser } = req.payload
+    const { id } = req.params
+    console.log(id)
 
     User
-        .findById(loggedUser._id)
+        .findById(id)
         .populate('bookings')
-        .then((result) => res.json(result.bookings))
+        .then((result) => {
+            console.log(result.bookings)
+            res.json(result.bookings)
+        })
         .catch(err => next(err))
 
 }
