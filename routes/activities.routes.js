@@ -7,7 +7,7 @@ router.get('/', getActivityList)
 
 router.get('/getById/:id', getActivity)
 
-router.post('/add', verfiyToken, isAdmin, addActivity)
+router.post('/add', verifyToken, isAdmin, addActivity)
 
 router.post('/:id/delete', verifyToken, isAdmin, deleteActivity)
 
