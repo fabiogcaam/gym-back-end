@@ -1,7 +1,7 @@
 function isAdmin(req, res, next) {
-    const { loggedUser } = req.payload
+    const { payload: loggedUser } = req
 
-    if (loggedUser.userType === "ADMIN") {
+    if (loggedUser.typeUser === "ADMIN") {
         next()
     } else {
         res.render('/')

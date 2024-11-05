@@ -12,5 +12,4 @@ router.post('/add', verifyToken, isAdmin, addActivity)
 router.post('/:id/delete', verifyToken, isAdmin, deleteActivity)
 
 
-
 module.exports = router

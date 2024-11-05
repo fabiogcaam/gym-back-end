@@ -24,6 +24,7 @@ function getActivity(req, res, next) {
 function addActivity(req, res, next) {
 
     const { name, description, imageUrl } = req.body
+    console.log("ENTRAMOS EN EL ACTIVIITY CONTROLLER")
 
     Activity.create({ name, description, imageUrl })
         .then(() => res.status(200).json('Activity created succesfully'))
