@@ -28,8 +28,7 @@ function getClass(req, res, next) {
 
 function addClass(req, res, next) {
 
-    const { trainerId } = req.params
-    const { schedule, participants, numParticipants } = req.body
+    const { trainerId, schedule, participants, numParticipants } = req.body
 
     Trainer.findById(trainerId).populate('activity')
         .then((foundTrainer) => {

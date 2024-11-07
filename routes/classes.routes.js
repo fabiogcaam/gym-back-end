@@ -9,7 +9,7 @@ router.get('/:classId', getClass)
 
 router.get('/:day/day', getClassesByDay)
 
-router.post('/:trainerId/add', addClass)
+router.post('/add', addClass)
 
 router.post('/:id/delete', verifyToken, isAdmin, deleteClass)
 
