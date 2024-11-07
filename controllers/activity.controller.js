@@ -2,7 +2,7 @@ const Activity = require('./../models/Activity.model')
 
 function getActivityList(req, res, next) {
 
-    Activity.find().populate('classes')
+    Activity.find()
         .then(activityFound => res.status(200).json(activityFound))
         .catch(err => next(err))
 
