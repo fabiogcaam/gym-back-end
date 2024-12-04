@@ -73,16 +73,22 @@ function finishedBooking(req, res, next) {
 
 function deleteBooking(req, res, next) {
 
-    const { loggedUser } = req.payload
-    const { idClass } = req.params
+    const { bookingId } = req.params
+    console.log("ESTO", bookingId)
 
-    const promises = [
-        User.findByIdAndUpdate(loggedUser, { $pull: { class: idClass } }, { new: true }),
-        Classes.findByIdAndUpdate(idClass, { $pull: { user: loggedUser._id } }, { new: true }),
-        Booking.findOneAndDelete({ user: loggedUser._id, class: idClass })
-    ]
+    console.log("LLEGAMOS AQUIII")
 
-    Promise.all(promises)
+    // const promises = [
+    //     User.findByIdAndUpdate(loggedUser, { $pull: { class: idClass } }, { new: true }),
+    //     Classes.findByIdAndUpdate(idClass, { $pull: { user: loggedUser._id } }, { new: true }),
+    //     Booking.findOneAndDelete({ idBooking })
+    // ]
+
+    // Promise.all(promises)
+    //     .then(() => res.status(200).json("Deleted booking succesfully"))
+    //     .catch(err => next(err))
+
+    Booking.findByIdAndDelete(bookingId).populate("Classes")
         .then(() => res.status(200).json("Deleted booking succesfully"))
         .catch(err => next(err))
 

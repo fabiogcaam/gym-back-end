@@ -6,6 +6,6 @@ router.post('/create', verifyToken, createBooking)
 
 router.post('/:id/finished', verifyToken, finishedBooking)
 
-router.delete('/:idClass/delete', verifyToken, deleteBooking)
+router.post('/:bookingId/delete', verifyToken, deleteBooking)
 
 module.exports = router

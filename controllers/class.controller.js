@@ -20,7 +20,6 @@ function getClass(req, res, next) {
 
     Classes.findById(classId).populate('trainer')
         .then(result => {
-            console.log("AYYYYYY", result)
             res.json(result)
         })
         .catch(err => next(err))
