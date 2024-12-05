@@ -1,4 +1,5 @@
 const Trainer = require('./../models/Trainer.model')
+const Activity = require('./../models/Activity.model')
 
 function getTrainers(req, res, next) {
 
@@ -7,6 +8,26 @@ function getTrainers(req, res, next) {
         .populate('activity')
         .then((trainer) => res.json(trainer))
         .catch(err => next(err))
+}
+
+function getTrainersByActivity(req, res, next) {
+
+    const { activityId } = req.params
+
+    Activity
+        .findById(activityId)
+        .then((activity) => {
+            if (!activity) {
+                res.status(404).json("Failed finding the Activity")
+            }
+            return Trainer.find({ activity: activity })
+        })
+        .then((trainers) => {
+            res.status(201).json(trainers)
+        })
+        .catch(err => next(err))
+
+
 }
 
 function createTrainer(req, res, next) {
@@ -39,6 +60,7 @@ function addActivityToTrainer(req, res, next) {
 
 module.exports = {
     getTrainers,
+    getTrainersByActivity,
     createTrainer,
     addActivityToTrainer
 }

@@ -21,6 +21,16 @@ function getActivity(req, res, next) {
         .catch(err => next(err))
 }
 
+function getActivityById(req, res, next) {
+
+    console.log("ENTRAMOS EN ACTIVITY BY ID CONTROLLER", activityId)
+    const { activityId } = req.params
+
+    Activity.findById(activityId)
+        .then((activity) => res.status(200).json(activity))
+        .catch(err => next(err))
+}
+
 function addActivity(req, res, next) {
 
     const { name, description, imageUrl } = req.body
@@ -42,4 +52,4 @@ function deleteActivity(req, res, next) {
 
 }
 
-module.exports = { getActivityList, addActivity, deleteActivity, getActivity }
+module.exports = { getActivityList, getActivityById, addActivity, deleteActivity, getActivity }
