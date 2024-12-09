@@ -12,18 +12,13 @@ function getTrainers(req, res, next) {
 
 function getTrainersByActivity(req, res, next) {
 
+    console.log("ENTRAMOS EN EL CONTROLLER")
     const { activityId } = req.params
 
-    Activity
-        .findById(activityId)
-        .then((activity) => {
-            if (!activity) {
-                res.status(404).json("Failed finding the Activity")
-            }
-            return Trainer.find({ activity: activity })
-        })
+    Trainer.find({ activity: activityId })
         .then((trainers) => {
-            res.status(201).json(trainers)
+            console.log("ESTOS SON LOS ENTRENADORES QUE HACEN ESA ACTIVIDAD", trainers)
+            res.status(200).json(trainers)
         })
         .catch(err => next(err))
 

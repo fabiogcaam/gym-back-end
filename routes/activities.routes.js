@@ -7,7 +7,7 @@ router.get('/', getActivityList)
 
 router.get('/getById/:id', getActivity)
 
-router.get('/:activityId', isAdmin, getActivityById)
+router.get('/:activityId', verifyToken, isAdmin, getActivityById)
 
 router.post('/add', verifyToken, isAdmin, addActivity)
 

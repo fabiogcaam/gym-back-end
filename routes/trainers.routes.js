@@ -5,7 +5,7 @@ const { verifyToken } = require('./../middlewares/verifyToken')
 
 router.get('/', getTrainers)
 
-router.get('/:activityId', isAdmin, getTrainersByActivity)
+router.get('/:activityId', verifyToken, isAdmin, getTrainersByActivity)
 
 router.post('/create', verifyToken, isAdmin, createTrainer)
 

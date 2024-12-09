@@ -23,11 +23,15 @@ function getActivity(req, res, next) {
 
 function getActivityById(req, res, next) {
 
-    console.log("ENTRAMOS EN ACTIVITY BY ID CONTROLLER", activityId)
     const { activityId } = req.params
+    console.log("ENTRAMOS EN ACTIVITY BY ID CONTROLLER", activityId)
 
-    Activity.findById(activityId)
-        .then((activity) => res.status(200).json(activity))
+    Activity.findById({ _id: activityId })
+        .then((activity) => {
+            console.log(activity)
+            res.status(200).json(activity)
+        }
+        )
         .catch(err => next(err))
 }
 
