@@ -6,10 +6,6 @@ const classesSchema = new Schema({
         ref: 'Trainer',
     },
     schedule: {
-        day: {
-            type: String,
-            required: true,
-        },
         time: {
             type: String,
             required: true
@@ -29,6 +25,12 @@ const classesSchema = new Schema({
                 },
                 props: `It must have a maximum of ${this.numParticipants} per class`
             }
+        }
+    ],
+    dates: [
+        {
+            type: Date,
+            required: true
         }
     ]
 })
