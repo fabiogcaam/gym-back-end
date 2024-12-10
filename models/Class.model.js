@@ -27,12 +27,10 @@ const classesSchema = new Schema({
             }
         }
     ],
-    dates: [
-        {
-            type: Date,
-            required: true
-        }
-    ]
+    dates: {
+        type: Date,
+        required: true
+    }
 })
 
 const Classes = model('Classes', classesSchema)
