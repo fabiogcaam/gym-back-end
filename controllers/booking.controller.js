@@ -53,7 +53,7 @@ function createBooking(req, res, next) {
 function finishedBooking(req, res, next) {
 
     const todaysDate = new Date()
-    const { bookingId } = req.params
+    const { bookingId } = req.body
 
     Booking.findById(bookingId)
         .populate('user')
@@ -67,6 +67,17 @@ function finishedBooking(req, res, next) {
             }
             foundBooking.status == "Finished"
             return res.status(201).json('This booking has finished')
+        })
+        .catch(err => next(err))
+}
+
+function findBookingByClass(req, res, next) {
+
+    const { classId } = req.body
+
+    Booking.findOne({ class: classId })
+        .then((booking) => {
+            return res.status(200).json(booking)
         })
         .catch(err => next(err))
 }
@@ -103,6 +114,7 @@ function deleteBooking(req, res, next) {
 module.exports = {
     createBooking,
     finishedBooking,
+    findBookingByClass,
     deleteBooking
 }
 
