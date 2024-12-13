@@ -52,35 +52,22 @@ function createBooking(req, res, next) {
 
 function finishedBooking(req, res, next) {
 
-    const todaysDate = new Date()
-    const { bookingId } = req.body
+    const { bookingId } = req.params
+    console.log("ENTRAMOS EN FINALIZAR EN EL CONTROLLER", bookingId)
 
-    Booking.findById(bookingId)
+    Booking.findByIdAndUpdate(bookingId, { $set: { status: "Finished" } }, { new: true })
         .populate('user')
         .populate('class')
         .then((foundBooking) => {
             if (!foundBooking) {
-                return res.status(400).json({ errorMessage: 'This booking doesn´t exists' })
+                return res.status(400).json({ errorMessage: 'This booking doesn´t exist' })
             }
-            if (foundBooking.bookingDate <= todaysDate) {
-                return res.status(400).json({ errorMessage: 'The booking hasn´t finished yet' })
-            }
-            foundBooking.status == "Finished"
-            return res.status(201).json('This booking has finished')
+
+            return res.status(201).json({ message: 'This booking has finished' })
         })
-        .catch(err => next(err))
+        .catch(err => next(err));
 }
 
-function findBookingByClass(req, res, next) {
-
-    const { classId } = req.body
-
-    Booking.findOne({ class: classId })
-        .then((booking) => {
-            return res.status(200).json(booking)
-        })
-        .catch(err => next(err))
-}
 
 function deleteBooking(req, res, next) {
 
@@ -114,7 +101,6 @@ function deleteBooking(req, res, next) {
 module.exports = {
     createBooking,
     finishedBooking,
-    findBookingByClass,
     deleteBooking
 }
 
