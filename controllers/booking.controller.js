@@ -65,7 +65,7 @@ function finishedBooking(req, res, next) {
 
             return res.status(201).json({ message: 'This booking has finished' })
         })
-        .catch(err => next(err));
+        .catch(err => next(err))
 }
 
 
@@ -75,7 +75,7 @@ function deleteBooking(req, res, next) {
     const { bookingId } = req.params
     console.log("ESTO", bookingId)
 
-    console.log("LLEGAMOS AQUIII")
+    console.log("LLEGAMOS AQUIII", loggedUser)
 
 
     Booking.findById(bookingId)
@@ -86,14 +86,16 @@ function deleteBooking(req, res, next) {
             }
 
             const promises = [
-                Booking.findOneAndDelete(bookingId).populate("Classes"),
-                User.findByIdAndUpdate(loggedUser, { $pull: { booking: bookingId } }, { new: true }),
+                Booking.findOneAndDelete(bookingId),
+                User.findByIdAndUpdate(loggedUser._id, { $pull: { bookings: bookingId } }, { new: true }),
                 Classes.findByIdAndUpdate(booking.class, { $pull: { participants: loggedUser._id } }, { new: true })
             ]
 
             return Promise.all(promises)
         })
-        .then(() => res.status(200).json("Deleted booking succesfully"))
+        .then(() => {
+            res.status(200).json("Deleted booking succesfully")
+        })
         .catch(err => next(err))
 
 }
