@@ -56,13 +56,7 @@ function finishedBooking(req, res, next) {
     console.log("ENTRAMOS EN FINALIZAR EN EL CONTROLLER", bookingId)
 
     Booking.findByIdAndUpdate(bookingId, { $set: { status: "Finished" } }, { new: true })
-        .populate('user')
-        .populate('class')
-        .then((foundBooking) => {
-            if (!foundBooking) {
-                return res.status(400).json({ errorMessage: 'This booking doesn´t exist' })
-            }
-
+        .then(() => {
             return res.status(201).json({ message: 'This booking has finished' })
         })
         .catch(err => next(err))
